@@ -1,6 +1,6 @@
 # GTM Scanner
 
-GTM Scanner is a tool that scans a list of submitted URLs and identifies the Google Tag Manager (GTM) containers present on each page. The tool uses Puppeteer and Node.js for its scanning operations.
+GTM Scanner is a tool that scans a list of submitted URLs and identifies the Google Tag Manager (GTM) containers present on each page. The tool uses [Puppeteer](https://pptr.dev/) and [puppeteer-datalayer](https://github.com/hume-dev/puppeteer-datalayer) for its scanning operations.
 
 ## Project Structure
 
@@ -30,4 +30,4 @@ If you would like to contribute to this project, please fork the repository, mak
 
 ## Licensing
 
-This project is licensed under the terms of the MIT license.
+This project is licensed under the terms of the MIT license. It includes a dependency on [Puppeteer](https://pptr.dev/) and [puppeteer-datalayer](https://github.com/hume-dev/puppeteer-datalayer) for its scanning operations.
