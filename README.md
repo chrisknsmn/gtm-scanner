@@ -6,7 +6,7 @@ GTM Scanner is a tool that scans a list of submitted URLs and identifies the Goo
 
 ## How to Use
 
-1. **Setup**: Clone the repository and run `npm install`
+1. **Setup**: Clone the repository and install packages
 
 ```
 npm install
@@ -30,4 +30,4 @@ If you would like to contribute to this project, please fork the repository, mak
 
 ## Licensing
 
-This project is licensed under the terms of the MIT license. For more details, see the `LICENSE` file in the `puppeteer-datalayer-master` directory.
+This project is licensed under the terms of the MIT license.
