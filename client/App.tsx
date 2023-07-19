@@ -94,11 +94,21 @@ return (
                 </form>
             </div>
 
-            <div className='card mar-t'>
+            <div className='table-card mar-t'>
                 <h2>
                     Results
                 </h2>
-                <div>
+                <table>
+                    
+                    <tr>
+                        <th>
+                            URL:
+                        </th>
+                        <th>
+                            Containers:
+                        </th>
+                    </tr>
+
                     {
                         data && Object.keys(data).map((outerKey) => {
                             
@@ -120,21 +130,29 @@ return (
                             }
 
                             return (
-                                <div key={outerKey} className='mar-t-15'>
-                                    {/* <p>{outerKey}</p> */}
-                                    <h2>URL:</h2>
-                                    <p>{url}</p>
-                                    <h2>Containers:</h2>
-                                    <ul>
-                                        {containers.map((cont: string, contIndex: number) => (
-                                            <li key={contIndex}>{cont}</li>
-                                        ))}
-                                    </ul>
-                                </div>
+                                // <div key={outerKey} className='mar-t-15'>
+                                //     {/* <p>{outerKey}</p> */}
+                                //     <h2>URL:</h2>
+                                //     <p>{url}</p>
+                                //     <h2>Containers:</h2>
+                                //     <ul>
+                                //         {containers.map((cont: string, contIndex: number) => (
+                                //             <li key={contIndex}>{cont}</li>
+                                //         ))}
+                                //     </ul>
+                                // </div>
+                                <tr>
+                                    <td>
+                                        {url}
+                                    </td>
+                                    {containers.map((cont: string, contIndex: number) => (
+                                        <td key={contIndex}>{cont}</td>
+                                    ))}
+                                </tr>
                             )
                         })
                     }
-                </div>
+                </table>
             </div>
 
         </div>
