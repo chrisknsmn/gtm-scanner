@@ -102,14 +102,10 @@ return (
             </div>
 
             <div className='table-card mar-t'>
-                <h2>
-                    Results
-                </h2>
-
+                <h2>Results</h2>
                 <div id="loading" className={showLoading ? 'display-block' : 'display-none'}>
                     Loading
                 </div>
-
                 <table className={showTable ? 'display-block' : 'display-none'}>
                     <tr>
                         <th>URL:</th>
