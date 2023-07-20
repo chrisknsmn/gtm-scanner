@@ -23,6 +23,14 @@ h2 {
     margin-bottom: 0px;
 }
 
+.display-none {
+    display: none !important;
+}
+.display-block {
+    display: block !important;
+}
+
+
 .section-inner {
     max-width: 1400px;
     margin: 0 auto;

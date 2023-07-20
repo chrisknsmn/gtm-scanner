@@ -6,6 +6,9 @@ const App: React.FC = () => {
 const [data, setData] = useState<any>(null);
 const [text, setText] = useState('');
 
+const [showLoading, setShowLoading] = useState(false);
+const [showTable, setShowTable] = useState(false);
+
 // Separate out the logic into a new function
 const sendData = async (text: string) => {
     try {
@@ -45,6 +48,8 @@ useEffect(() => {
         };
     
         ws.onmessage = (e) => {
+            setShowLoading(false);
+            setShowTable(true);
             console.log('File updated. Fetching data...');
             fetchData(); // Fetch the updated data when a WebSocket message is received
         };
@@ -66,6 +71,8 @@ useEffect(() => {
 }, []);
 
 const handleSubmit = async (event: React.FormEvent) => {
+    console.log(1);
+    setShowLoading(true);
     event.preventDefault();
     sendData(text); //Call sendData on form submission
 }
@@ -98,17 +105,16 @@ return (
                 <h2>
                     Results
                 </h2>
-                <table>
-                    
-                    <tr>
-                        <th>
-                            URL:
-                        </th>
-                        <th>
-                            Containers:
-                        </th>
-                    </tr>
 
+                <div id="loading" className={showLoading ? 'display-block' : 'display-none'}>
+                    Loading
+                </div>
+
+                <table className={showTable ? 'display-block' : 'display-none'}>
+                    <tr>
+                        <th>URL:</th>
+                        <th>Containers:</th>
+                    </tr>
                     {
                         data && Object.keys(data).map((outerKey) => {
                             
@@ -141,7 +147,7 @@ return (
                                 //         ))}
                                 //     </ul>
                                 // </div>
-                                <tr>
+                                <tr key={outerKey}>
                                     <td>
                                         {url}
                                     </td>
