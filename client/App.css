@@ -112,3 +112,8 @@ td {
 
     overflow-x: scroll;
 }
+
+#loading {
+    width: 100%;
+    text-align: center;
+}

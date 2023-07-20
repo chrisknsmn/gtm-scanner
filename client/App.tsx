@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 
+import LoadingIcon from './icons/loading';
+
 const App: React.FC = () => {
 
 const [data, setData] = useState<any>(null);
@@ -73,6 +75,7 @@ useEffect(() => {
 const handleSubmit = async (event: React.FormEvent) => {
     console.log(1);
     setShowLoading(true);
+    setShowTable(false);
     event.preventDefault();
     sendData(text); //Call sendData on form submission
 }
@@ -104,7 +107,7 @@ return (
             <div className='table-card mar-t'>
                 <h2>Results</h2>
                 <div id="loading" className={showLoading ? 'display-block' : 'display-none'}>
-                    Loading
+                    <LoadingIcon />
                 </div>
                 <table className={showTable ? 'display-block' : 'display-none'}>
                     <tr>
