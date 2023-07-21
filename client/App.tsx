@@ -73,7 +73,6 @@ useEffect(() => {
 }, []);
 
 const handleSubmit = async (event: React.FormEvent) => {
-    console.log(1);
     setShowLoading(true);
     setShowTable(false);
     event.preventDefault();
