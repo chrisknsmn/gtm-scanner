@@ -29,6 +29,7 @@ let db = new sqlite3.Database('server/database.db', (err) => {
 });
 
 let data = {};
+// let currentContainers = [];
 
 app.use(cors());
 app.use(express.json());

@@ -87,10 +87,10 @@ table {
     overflow: scroll;
 }
 
-table > tr:nth-of-type(even) {
+tbody > tr:nth-of-type(even) {
     background-color: rgb(235, 235, 255);
 }
-table > tr:nth-of-type(odd) {
+tbody > tr:nth-of-type(odd) {
     background-color: rgb(241, 241, 241);
 }
 

@@ -30,14 +30,12 @@ const sendData = async (text: string) => {
 const fetchData = async () => {
     const response = await fetch('http://localhost:5001/api');
     const dataString = await response.text();
-
     try {
         const data = JSON.parse(dataString);
         setData(data);
     } catch (error) {
         console.log('JSON incomplete');
     }
-
 }
 
 useEffect(() => {
@@ -82,6 +80,7 @@ const handleSubmit = async (event: React.FormEvent) => {
 const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
     setData('');
+    
 }
 
 return (
@@ -109,53 +108,48 @@ return (
                     <LoadingIcon />
                 </div>
                 <table className={showTable ? 'display-block' : 'display-none'}>
-                    <tr>
-                        <th>URL:</th>
-                        <th>Containers:</th>
-                    </tr>
-                    {
-                        data && Object.keys(data).map((outerKey) => {
-                            
-                            const item = data[outerKey];
-                            const url = item['1'];
+                    <thead>
+                        <tr>
+                            <th>URL:</th>
+                            <th>Containers:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            data && Object.keys(data).map((outerKey) => {
+                                
+                                const item = data[outerKey];
+                                const url = item['1'];
 
-                            // Skip this iteration if url is blank
-                            if(url === '' || url === null || url === undefined) {
-                                return null; 
-                            }
-                            
-                            let containers = [];
-                            if(item['2'] !== undefined) {
-                                try {
-                                    containers = JSON.parse(item['2']);
-                                } catch (error) {
-                                    console.error('Failed to parse containers:', error);
+                                // Skip this iteration if url is blank
+                                if(url === '' || url === null || url === undefined) {
+                                    return null;
                                 }
-                            }
-
-                            return (
-                                // <div key={outerKey} className='mar-t'>
-                                //     {/* <p>{outerKey}</p> */}
-                                //     <h2>URL:</h2>
-                                //     <p>{url}</p>
-                                //     <h2>Containers:</h2>
-                                //     <ul>
-                                //         {containers.map((cont: string, contIndex: number) => (
-                                //             <li key={contIndex}>{cont}</li>
-                                //         ))}
-                                //     </ul>
-                                // </div>
-                                <tr key={outerKey}>
-                                    <td>
-                                        {url}
-                                    </td>
-                                    {containers.map((cont: string, contIndex: number) => (
-                                        <td key={contIndex}>{cont}</td>
-                                    ))}
-                                </tr>
-                            )
-                        })
-                    }
+                                
+                                let containers = [];
+                                if(item['2'] !== undefined) {
+                                    try {
+                                        containers = JSON.parse(item['2']);
+                                    } catch (error) {
+                                        console.error('Failed to parse containers:', error);
+                                    }
+                                }
+                                return (
+                                    <tr key={outerKey}>
+                                        <td>
+                                            {url}
+                                        </td>
+                                        {containers.map((cont: string, contIndex: number) => {
+                                            return (
+                                                <td key={contIndex}>{cont}</td>
+                                            )
+                                        }
+                                        )}
+                                    </tr>
+                                )
+                            })
+                        }
+                    </tbody>
                 </table>
             </div>
 
