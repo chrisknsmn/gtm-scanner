@@ -108,9 +108,7 @@ async function scanLinks(arr) {
       };
     }));
 
-
-    console.log( results );
-    console.log( checkResults( results, getLongestResult(results) ) );
+    checkResults( results, getAllContainers(results) );
 
     // Update data after all checkLink operations are complete
     results.forEach((result, i) => {
@@ -119,7 +117,7 @@ async function scanLinks(arr) {
 
   }
 
-  function getLongestResult(r) {
+  function getAllContainers(r) {
     let arrOut = [];
     for (let i = 0; i < Object.keys(r).length; i++) {
       let arrIn = JSON.parse(r[i][2]);
