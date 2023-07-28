@@ -108,10 +108,46 @@ async function scanLinks(arr) {
       };
     }));
 
+
+    console.log( results );
+    console.log( checkResults( results, getLongestResult(results) ) );
+
     // Update data after all checkLink operations are complete
     results.forEach((result, i) => {
       data[i] = result;
     });
+
+  }
+
+  function getLongestResult(r) {
+    let arrOut = [];
+    for (let i = 0; i < Object.keys(r).length; i++) {
+      let arrIn = JSON.parse(r[i][2]);
+      for (const item of arrIn) {
+        if(arrOut.includes(item) != true) {
+          arrOut.push(item);
+        }  
+      }
+    }
+    arrOut.sort();
+    return arrOut;
+  }
+
+  function checkResults(r, arr) {
+    // console.log(r);
+    for (let i = 0; i < Object.keys(r).length; i++) {
+      let currentObjArr = JSON.parse(r[i][2]);
+      for (let j = 0; j < arr.length; j++) {
+        // console.log( i + " : " + currentObjArr[j] + " : " + arr[j]);
+        if( arr[j] != currentObjArr[j] ) {
+          currentObjArr.splice(j, 0, ' ');
+          // console.log( i + " : " + currentObjArr[j] + " : " + arr[j]);
+        }
+      }
+      r[i][2] = JSON.stringify(currentObjArr);
+    }
+    // console.log(r);
+    return r;
   }
 
   // After scanning links and the file is updated, notify WebSocket clients
@@ -127,7 +163,6 @@ async function scanLinks(arr) {
   });
   
 }
-
 
 //SQL instead of json
 // dbClearTable(tables[0]);

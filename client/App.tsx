@@ -36,6 +36,7 @@ const fetchData = async () => {
     } catch (error) {
         console.log('JSON incomplete');
     }
+    
 }
 
 useEffect(() => {
