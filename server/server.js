@@ -117,20 +117,27 @@ async function scanLinks(arr) {
 
   }
 
+  //Create and return an array of all containers foind on every submitted link
   function getAllContainers(r) {
     let arrOut = [];
+    //Loop through object of urls
     for (let i = 0; i < Object.keys(r).length; i++) {
+      //Get containers for single page
       let arrIn = JSON.parse(r[i][2]);
+      //Loop through containers on this page
       for (const item of arrIn) {
+        //Add arrOut if doesnt exist
         if(arrOut.includes(item) != true) {
           arrOut.push(item);
         }  
       }
     }
+    //Return array of all urls 
     arrOut.sort();
     return arrOut;
   }
 
+  //Check container array on each page and add space as empty table cell for formatting
   function checkResults(r, arr) {
     // console.log(r);
     for (let i = 0; i < Object.keys(r).length; i++) {
