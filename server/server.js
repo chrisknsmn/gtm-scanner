@@ -28,8 +28,10 @@ let db = new sqlite3.Database('server/database.db', (err) => {
   console.log('Connected to the in-memory SQlite database.');
 });
 
-let data = {};
-// let currentContainers = [];
+let data = {
+  allCont: [],
+  results: {}
+};
 
 app.use(cors());
 app.use(express.json());
@@ -84,7 +86,10 @@ app.post("/api", async (req, res) => {
 //FUNCTIONS
 async function scanLinks(arr) {
 
-  data = {};
+  data = {
+    allCont: [],
+    results: {}
+  };
 
   if(arr != undefined) {
     // Use Promise.all to wait for all checkLink operations to complete
@@ -107,23 +112,26 @@ async function scanLinks(arr) {
         2: JSON.stringify(result),
       };
     }));
-
-    checkResults( results, getAllContainers(results) );
-
+    //Check all pages to get array of every container
+    let allContArray = checkAllContainers(results);
+    //Format results based on every container
+    formatResults( results, allContArray );
     // Update data after all checkLink operations are complete
     results.forEach((result, i) => {
-      data[i] = result;
+      //Update results in data
+      data.results[i] = result;
     });
-
+    //Update allCont array to show containers on all pages
+    data.allCont = allContArray;
   }
 
   //Create and return an array of all containers foind on every submitted link
-  function getAllContainers(r) {
+  function checkAllContainers(results) {
     let arrOut = [];
     //Loop through object of urls
-    for (let i = 0; i < Object.keys(r).length; i++) {
+    for (let i = 0; i < Object.keys(results).length; i++) {
       //Get containers for single page
-      let arrIn = JSON.parse(r[i][2]);
+      let arrIn = JSON.parse(results[i][2]);
       //Loop through containers on this page
       for (const item of arrIn) {
         //Add arrOut if doesnt exist
@@ -138,21 +146,22 @@ async function scanLinks(arr) {
   }
 
   //Check container array on each page and add space as empty table cell for formatting
-  function checkResults(r, arr) {
-    // console.log(r);
-    for (let i = 0; i < Object.keys(r).length; i++) {
-      let currentObjArr = JSON.parse(r[i][2]);
-      for (let j = 0; j < arr.length; j++) {
-        // console.log( i + " : " + currentObjArr[j] + " : " + arr[j]);
-        if( arr[j] != currentObjArr[j] ) {
+  function formatResults(results, allContainers) {
+    //Loop through object of urls
+    for (let i = 0; i < Object.keys(results).length; i++) {
+      //Loop through containers on every page
+      let currentObjArr = JSON.parse(results[i][2]);
+      for (let j = 0; j < allContainers.length; j++) {
+        //If this page doesnt have a container add empty string in that place
+        if( allContainers[j] != currentObjArr[j] ) {
           currentObjArr.splice(j, 0, ' ');
-          // console.log( i + " : " + currentObjArr[j] + " : " + arr[j]);
         }
       }
-      r[i][2] = JSON.stringify(currentObjArr);
+      //Update this page's container array
+      results[i][2] = JSON.stringify(currentObjArr);
     }
-    // console.log(r);
-    return r;
+    //Return all opdated pages
+    return results;
   }
 
   // After scanning links and the file is updated, notify WebSocket clients

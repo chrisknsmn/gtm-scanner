@@ -31,13 +31,12 @@ const fetchData = async () => {
     const response = await fetch('http://localhost:5001/api');
     const dataString = await response.text();
     try {
-        const data = JSON.parse(dataString);
-        setData(data);
+      const parsedData = JSON.parse(dataString);
+      setData(parsedData); // Update state with the parsed data
     } catch (error) {
-        console.log('JSON incomplete');
+      console.log('JSON incomplete');
     }
-    
-}
+  };
 
 useEffect(() => {
 
@@ -116,10 +115,22 @@ return (
                         </tr>
                     </thead>
                     <tbody>
-                        {
-                            data && Object.keys(data).map((outerKey) => {
+
+                        <tr>
+                            {data && data.allCont.map((outerKey: string, index: number) => {
+                                return (
+                                    <td key={index}>
+                                        <b>{outerKey}</b>
+                                    </td>
+                                );
+                            })}
+                        </tr>
+
+                        {   
+                        
+                            data && Object.keys(data.results).map((outerKey) => {
                                 
-                                const item = data[outerKey];
+                                const item = data.results[outerKey];
                                 const url = item['1'];
 
                                 // Skip this iteration if url is blank
@@ -140,9 +151,9 @@ return (
                                         <td>
                                             {url}
                                         </td>
-                                        {containers.map((cont: string, contIndex: number) => {
+                                        {containers.map((cont: string, index: number) => {
                                             return (
-                                                <td key={contIndex}>{cont}</td>
+                                                <td key={index}>{cont}</td>
                                             )
                                         }
                                         )}
