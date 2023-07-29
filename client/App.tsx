@@ -115,8 +115,8 @@ return (
                         </tr>
                     </thead>
                     <tbody>
-
                         <tr>
+                            <td></td>
                             {data && data.allCont.map((outerKey: string, index: number) => {
                                 return (
                                     <td key={index}>
@@ -125,19 +125,14 @@ return (
                                 );
                             })}
                         </tr>
-
                         {   
-                        
                             data && Object.keys(data.results).map((outerKey) => {
-                                
                                 const item = data.results[outerKey];
                                 const url = item['1'];
-
                                 // Skip this iteration if url is blank
                                 if(url === '' || url === null || url === undefined) {
                                     return null;
                                 }
-                                
                                 let containers = [];
                                 if(item['2'] !== undefined) {
                                     try {
