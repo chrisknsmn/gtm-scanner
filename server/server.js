@@ -142,6 +142,7 @@ async function scanLinks(arr) {
     }
     //Return array of all urls 
     arrOut.sort();
+    //Return array of all urls 
     return arrOut;
   }
 
