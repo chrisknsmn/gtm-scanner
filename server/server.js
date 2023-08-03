@@ -181,6 +181,7 @@ async function scanLinks(arr) {
 //SQL instead of json
 // dbClearTable(tables[0]);
 // dbInsert(tables[0], data);
+
 async function checkLink(link) {
   try {
     const browser = await puppeteer.launch(launchOptions);
